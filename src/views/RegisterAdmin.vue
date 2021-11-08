@@ -92,9 +92,47 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-
+import axios from "axios";
+/**
+ * 管理者登録機能を表すクラスコンポーネントです.
+ */
 @Component
-export default class RegisterAdmin extends Vue {}
+export default class RegisterAdmin extends Vue {
+  // エラーメッセージ
+  private errorMessage = "";
+  // 姓
+  private lastName = "";
+  // 名
+  private firstName = "";
+  // メールアドレス
+  private mailAddress = "";
+  // パスワード
+  private password = "";
+
+  /**
+   * 管理者情報を登録する.
+   *
+   * @remarks
+   * axios を使用して WebAPI を呼び、登録情報を送る。
+   * 登録が成功すればログイン画面に遷移し、失敗すればエラーメッセージを画面に表示する。
+   */
+  async registerAdmin(): Promise<void> {
+    const response = await axios.post(
+      "http://153.127.48.168:8080/ex-emp-api/insert",
+      {
+        name: this.lastName + this.firstName,
+        mailAddress: this.mailAddress,
+        password: this.password,
+      }
+    );
+    if (response.data.status === "success") {
+      this["$router"].push("/loginAdmin");
+    }
+    if (response.data.status === "error") {
+      this.errorMessage = response.data.message;
+    }
+  }
+}
 </script>
 
 <style></style>
