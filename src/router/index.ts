@@ -9,7 +9,12 @@ const routes: Array<RouteConfig> = [
   //   path: "*",
   //   component: () => import("../components/LoginAdmin.vue"),
   // },
+  {
+    path: "/registerAdmin",
+    component: () => import("../views/RegisterAdmin.vue"),
+  },
 ];
+
 
 const router = new VueRouter({
   mode: "history",
