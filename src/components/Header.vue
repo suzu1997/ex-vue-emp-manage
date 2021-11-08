@@ -3,15 +3,15 @@
     <div class="container">
       <div class="header">
         <div class="header-left">
-          <a href="../../documents/html_mock/registerAdmin.html">
+          <router-link to="/registerAdmin">
             <img class="logo" src="img/header_logo.png"
-          /></a>
+          /></router-link>
         </div>
 
         <div class="header-right">
-          <a href="../../documents/html_mock/registerAdmin.html">
+          <router-link to="/registerAdmin">
             管理者登録
-          </a>
+          </router-link>
           <a href="../../documents/html_mock/login.html">
             <i class="fas fa-sign-in-alt"></i>ログイン
           </a>
