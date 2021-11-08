@@ -17,21 +17,39 @@
     <!-- top-wrapper -->
     <div class="container">
       <div class="row register-page">
-        <div class="error">エラーメッセージ</div>
-        <form class="col s12" id="reg-form" action="login.html">
+        <div class="error">{{ errorMessage }}</div>
+        <form class="col s12" id="reg-form">
           <div class="row">
             <div class="input-field col s6">
-              <input id="last_name" type="text" class="validate" required />
+              <input
+                id="last_name"
+                type="text"
+                class="validate"
+                required
+                v-model="lastName"
+              />
               <label for="last_name">姓</label>
             </div>
             <div class="input-field col s6">
-              <input id="first_name" type="text" class="validate" required />
+              <input
+                id="first_name"
+                type="text"
+                class="validate"
+                required
+                v-model="firstName"
+              />
               <label for="first_name">名</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
-              <input id="email" type="email" class="validate" required />
+              <input
+                id="email"
+                type="email"
+                class="validate"
+                required
+                v-model="mailAddress"
+              />
               <label for="email">メールアドレス</label>
             </div>
           </div>
@@ -43,6 +61,7 @@
                 class="validate"
                 minlength="8"
                 required
+                v-model="password"
               />
               <label for="password">パスワード</label>
             </div>
@@ -51,6 +70,8 @@
             <div class="input-field col s6">
               <button
                 class="btn btn-large btn-register waves-effect waves-light"
+                v-on:click="registerAdmin"
+                type="button"
               >
                 登録
                 <i class="material-icons right">done</i>
