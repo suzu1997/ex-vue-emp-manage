@@ -52,8 +52,44 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import axios from "axios";
+/**
+ * ログイン機能を表すクラスコンポーネントです.
+ */
+@Component
+export default class LoginAdmin extends Vue {
+  // エラーメッセージ
+  private errorMessage = "";
+  // メールアドレス
+  private mailAddress = "";
+  // パスワード
+  private password = "";
+
+  /** 
+   * ログインをする.
+   * 
+   * @remarks 
+   * axios を使用して WebAPI を呼び、ログインを行う。
+   * ログイン成功なら従業員一覧画面に遷移し、失敗ならエラーメッセージを表示する。
+   */
+  async loginAdmin(): Promise<void> {
+    const response = await axios.post(
+      "http://153.127.48.168:8080/ex-emp-api/login",
+      {
+        mailAddress: this.mailAddress,
+        password: this.password,
+      }
+    );
+    if (response.data.status === "success") {
+      this["$router"].push("/employeeList");
+    }
+    if (response.data.status === "error") {
+      this.errorMessage = response.data.message;
+    }
+  }
+}
 </script>
 
 <style></style>
