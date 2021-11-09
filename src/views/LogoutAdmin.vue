@@ -7,6 +7,9 @@ import axios from "axios";
  */
 @Component
 export default class LogoutAdmin extends Vue {
+  created(): void {
+    this.logoutAdmin();
+  }
   /**
    * ログアウトをする.
    */
