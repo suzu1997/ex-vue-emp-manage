@@ -32,6 +32,15 @@ export default new Vuex.Store({
   }, // end actions
   mutations: {
     /**
+     * 従業員一覧を初期化.
+     *
+     * @remarks
+     * 従業員一覧表示時に呼び出して空の配列で初期化する
+     */
+    initEmployeeList(state) {
+      state.employees = new Array<Employee>();
+    },
+    /**
      * 従業員一覧情報を作成してstateに格納.
      *
      * @param state - stateオブジェクト
