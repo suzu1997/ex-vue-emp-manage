@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <form action="employeeList.html">
+      <form>
         <fieldset>
           <legend>従業員情報</legend>
           <table>
@@ -76,6 +76,7 @@
                     class="validate"
                     value="3"
                     required
+                    v-model="currentDependentsCount"
                   />
                   <label for="dependentsCount2">扶養人数</label>
                 </div>
@@ -83,7 +84,11 @@
             </tr>
           </table>
 
-          <button class="btn btn-register waves-effect waves-light">
+          <button
+            class="btn btn-register waves-effect waves-light"
+            v-on:click="update"
+            type="button"
+          >
             更新
           </button>
         </fieldset>
@@ -115,11 +120,27 @@ export default class EmployeeDetail extends Vue {
    * VuexストアのGetter経由で受け取ったリクエストパラメータのIDから1件の従業員情報を取得.
    */
   created(): void {
-    const employeeId = parseInt(this["$route"].params.id);
+    const employeeId = parseInt(this.$route.params.id);
     this.currentEmployee = this["$store"].getters.getEmployeeById(employeeId);
     this.currentEmployeeImage = `http://153.127.48.168:8080/ex-emp-api/img/${this.currentEmployee.image}`;
-    
+
     this.currentDependentsCount = this.currentEmployee.dependentsCount;
+  }
+
+  async update(): Promise<void> {
+    const response = await axios.post(
+      "http://153.127.48.168:8080/ex-emp-api/employee/update",
+      {
+        id: this.currentEmployee.id,
+        dependentsCount: this.currentDependentsCount,
+      }
+    );
+    if (response.data.status === "success") {
+      this["$router"].push("/employeeList");
+    }
+    if (response.data.status === "error") {
+      this.errorMessage = response.data.message;
+    }
   }
 }
 </script>
